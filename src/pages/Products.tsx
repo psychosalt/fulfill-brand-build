@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 import milletBowl from "@/assets/product-millet-bowl.jpg";
 import quinoaBowl from "@/assets/product-quinoa-bowl.jpg";
 import oatsBowl from "@/assets/product-oats-bowl.jpg";
@@ -16,7 +17,9 @@ const products = [
   { name: "Rajma Rice Bowl", protein: "21g", calories: "390 kcal", fiber: "11g", price: 125, rating: 4.7, reviews: 198, tag: "Comfort", image: dalRice, desc: "North Indian favourite rajma chawal with a high-protein twist." },
 ];
 
-const Products = () => (
+const Products = () => {
+  const { addItem } = useCart();
+  return (
   <>
     <Navbar />
     <main className="pt-20 md:pt-24">
@@ -51,7 +54,7 @@ const Products = () => (
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-bold">₹{p.price}</span>
-                    <Button>Add to Cart</Button>
+                    <Button onClick={() => addItem({ name: p.name, price: p.price, image: p.image, protein: p.protein })}>Add to Cart</Button>
                   </div>
                 </div>
               </div>
@@ -62,6 +65,7 @@ const Products = () => (
     </main>
     <Footer />
   </>
-);
+  );
+};
 
 export default Products;

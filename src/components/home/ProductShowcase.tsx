@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
 import milletBowl from "@/assets/product-millet-bowl.jpg";
 import quinoaBowl from "@/assets/product-quinoa-bowl.jpg";
 import oatsBowl from "@/assets/product-oats-bowl.jpg";
@@ -36,7 +37,9 @@ const products = [
   },
 ];
 
-const ProductShowcase = () => (
+const ProductShowcase = () => {
+  const { addItem } = useCart();
+  return (
   <section className="py-20 md:py-28 bg-secondary">
     <div className="container">
       <div className="text-center max-w-2xl mx-auto mb-14">
@@ -78,7 +81,7 @@ const ProductShowcase = () => (
               </div>
               <div className="flex items-center justify-between mt-4">
                 <span className="text-xl font-bold">₹{p.price}</span>
-                <Button size="sm">Add to Cart</Button>
+                <Button size="sm" onClick={() => addItem({ name: p.name, price: p.price, image: p.image, protein: p.protein })}>Add to Cart</Button>
               </div>
             </div>
           </div>
@@ -91,6 +94,7 @@ const ProductShowcase = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default ProductShowcase;
